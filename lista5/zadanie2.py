@@ -1,68 +1,42 @@
-import numpy as np
+from scipy.interpolate import CubicSpline
+import scipy.optimize as o
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-def polynomial(x, y):
-    n = np.shape(x)[0]  # "wysokość" piramidy
-    piramida = np.zeros([n, n])  # stworzenie pola do piramidy
-
-    # wpisanie w piramidę wartości y w 1 kolumnie
-    for i in range(np.shape(piramida)[1]):
-        piramida[i][0] = y[i]
-
-    for j in range(1, n):
-        for i in range(n - j):
-            licznik = (piramida[i + 1][j - 1] - piramida[i][j - 1])
-            mianownik = (x[i + j] - x[i])
-            piramida[i][j] = licznik / mianownik
-    return piramida[0]  # zwróć tylko 1 wiersz, w którym sa wyniki
+def f_prim(x, cs):
+    return cs(x, 1)
 
 
-def plot_function(x_list, function):    # Funkcja do rysowania funkcji
-    y_list = []
-
-    for j in range(len(x_list)):
-        y_list.append(0)
-
-        for i in range(len(function)):
-            y_list[j] += function[i] * x_list[j] ** i
-
-    plt.plot(x_list, y_list)
-    plt.grid()
+def f(u):
+    return cs(u)
 
 
-def print_values(result):
-
-    m = len(result)
-    result = result[::-1]
-    print("y = ", end='')
-
-    for i in range(m):
-
-        if result[i] < 0 or i == 0:
-            if i == m-1:
-                print(f"{result[i]} ", end='')
-            else:
-                print(f"{result[i]}x^{m-i-1} ", end='')
-        else:
-            if i == m-1:
-                print(f"+{result[i]} ", end='')
-            else:
-                print(f"+{result[i]}x^{m-i-1} ", end='')
-
-
+global x
 x = np.array([1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3])
+
+global y
 y = np.array([-0.5403, -0.0104, 0.9423, 1.7445, 1.3073, -0.7718, -2.4986, -0.7903, 2.7334])
-x_range = np.arange(0, 5)
 
-#wynik = polynomial(x, y)
-#print_values(wynik)
-wynik = [-7102.34, 31199.4, -58626.5, 61672.8, 39817.7, 16195.4, -4061.41, 575.103, 35.2449]
+global cs
+cs = CubicSpline(x, y)
 
-print(wynik)
-plot_function(x_range, wynik)
 plt.scatter(x, y)
+x_range = np.arange(1, 3, 0.001)
 
+plt.plot(x_range, cs(x_range), label='f(x)')
+plt.plot(x_range, cs(x_range, 1), label="f'(x)")
+
+result = f_prim(2.1, cs)
+print(f"y'(2.1)= {result}")
+
+root_list = [o.ridder(f, 1.2, 1.3), o.ridder(f, 2.1, 2.2), o.ridder(f, 2.8, 2.9)]
+
+print(f"Miejsca zerowe funkcji f(x): {root_list}")
+
+
+plt.scatter(2.1, result, label='f\'(2.1)')
+plt.scatter(root_list, np.zeros(len(root_list)), label='f(x)=0')
+plt.legend()
+plt.grid()
 plt.show()
-
-
