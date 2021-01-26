@@ -1,6 +1,5 @@
 from scipy.integrate import simps
 from matplotlib import pyplot as plt
-from matplotlib.patches import Polygon
 import numpy as np
 
 
