@@ -10,10 +10,13 @@ def f(x):
 a = -1
 b = 1
 
+print("nr wezla  wartosc")
+
 knots = [3, 5, 7]
 
-for s in knots:
-    zx = np.linspace(a, b, num=s, endpoint=True)
+for i in knots:
+    zx = np.linspace(a, b, num=i, endpoint=True)
     zy = f(zx)
     ws = simps(zy, zx)
-    print(f"Dla {s} wezlow funkcja: {ws}")
+    print("%6d  %18.15f" % (i, ws))
+
