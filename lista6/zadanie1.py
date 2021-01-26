@@ -7,19 +7,6 @@ def f(x):
     return np.log(np.tanh(x / (x**2 + 1)))
 
 
-""""
-def f_1prim(x):
-    return derivative(f, x, 1e-6, 1)
-
-
-def f_2prim(x):
-    return derivative(f, x, 1e-6, 2)
-
-
-def f_3prim(x):
-    return derivative(f, x_0, 1e-4, 3, order=7)
-"""
-
 x_0 = 0.2
 
 
@@ -28,25 +15,22 @@ f_2prim = derivative(f, x_0, 1e-6, 2)
 f_3prim = derivative(f, x_0, 1e-4, 3, order=7)
 
 
-
 print(f"f'(0.2) = {f_prim}")    # 4.50353 wg Wolframalpha
 print(f"f''(0.2) = {f_2prim}")   # -27.1412 wg Wolframalpha
 print(f"f'''(0.2) = {f_3prim}")  # 254.61 wg Wolframalpha
-""""
 
-x_range = np.linspace(0, 1, 1000)
-y_range_1prim, y_range_2prim, y_range_3prim = [], [], []
-
-for i in x_range:
-    try:
-        y_range_1prim.append(f_1prim(i))
-        y_range_2prim.append(f_2prim(i))
-        y_range_3prim.append(f_3prim(i))
-    except RuntimeWarning:
-        print('xd')
+x_range = np.linspace(0.1, 1, 1000, endpoint=True)
+x_range2 = np.linspace(0.2, 1, 100, endpoint=True)
 
 
-plt.plot(x_range, y_range_1prim)
-plt.scatter(x_0, f_1prim(x_0))
+y_1prim = derivative(f, x_range, 1e-6, 1)
+y_2prim = derivative(f, x_range, 1e-6, 2)
+y_3prim = derivative(f, x_range2, 1e-4, 3, order=7)
+
+plt.scatter([x_0 for i in range(3)], [f_prim, f_2prim, f_3prim])
+plt.plot(x_range, y_1prim, label="f'(x)")
+plt.plot(x_range, y_2prim, label="f''(x)")
+plt.plot(x_range2, y_3prim, label="f'''(x)")
+plt.grid()
+plt.legend()
 plt.show()
-"""
