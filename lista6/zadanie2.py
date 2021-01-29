@@ -6,10 +6,11 @@ x = np.array([0.0, 0.1, 0.2, 0.3, 0.4])
 y = np.array([0.0, 0.078348, 0.13891, 0.192916, 0.244981])
 x_0 = 0.2
 
+# Do wykresu
 f1 = interpolate.interp1d(x, y, kind='quadratic')
-
 x_range = np.arange(0, 0.4, 0.001)
 y_range = f1(x_range)
+
 
 p1 = interpolate.lagrange(x, y)
 derivative = np.polyder(p1)

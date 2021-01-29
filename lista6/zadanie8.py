@@ -4,15 +4,15 @@ import numpy as np
 
 def fxy(x, y):
     return np.sin(np.pi * x) * np.sin(np.pi * (y - x))
-# pierwszy argument dla całkowania wewnetrznego
+# argument - calkowanie wewnetrzne
 
 
-# deklarujemy funkcję zwracającą dolną granicę calki wewnętrznej
+# dolna granica calki wewnetrznej
 def gfxy(x):
     return 0
 
 
-# deklarujemy funkcję zwracającą górną granicę calki wewnętrznej
+# gorna granica calki wewnetrznej
 def hfxy(x):
     return x
 
