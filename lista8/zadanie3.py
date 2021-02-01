@@ -8,7 +8,6 @@ for n in n_array:
     nd = -1 * np.ones(n-1)
     w3, v3 = eigh_tridiagonal(d, nd)
 
-    print("Wartosci wlasne: ", w3)
-
-    print("\nWektory wlasne", v3)
+    print("Wartości własne: ", w3[:3], sep="\n")
+    print("Wektory własne: ", v3[:, :3], sep="\n")
 
