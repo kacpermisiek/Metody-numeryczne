@@ -16,5 +16,3 @@ for n in n_array:
     print("Wektory wlasne: ")
     for i in range(3):
         print(v3[i])
-
-
