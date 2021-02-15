@@ -21,6 +21,11 @@ P_max_idx = Power_list.index(max(Power_list))
 print(f"Maksymalna moc wydzialana na oporniku: {round(Power_list[P_max_idx], 2)} W")
 print(f"Wartosc oporu R_x, przy ktorej moc wydzielana jest najwieksza: {round(R_range[P_max_idx], 2)} Ω")
 
+
+for i in Power_list:
+    print(i)
+
+""""
 plt.plot(R_range, Power_list, 'ro-', label=r"P($R_x$)")
 plt.scatter(R_range[P_max_idx], Power_list[P_max_idx], label=r'$P_{max}$', linewidths=7)
 plt.grid()
@@ -32,3 +37,4 @@ plt.legend(fontsize=40)
 mng = plt.get_current_fig_manager()
 mng.full_screen_toggle()
 plt.show()
+"""
